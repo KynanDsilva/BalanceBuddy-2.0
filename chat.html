@@ -5,34 +5,268 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BB | Chats</title>
-    <link rel="stylesheet" href="chat.css">
     <link rel="icon" href="images/BB.ico">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        .room-options {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .room-controls {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .input-room {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            width: 250px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .chat-container {
+            width: 600px;
+            max-width: 90%;
+            height: 80vh;
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .chat-header {
+            background-color: #007bff;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 22px;
+            font-weight: bold;
+            border-radius: 15px 15px 0 0;
+        }
+
+        .chat-window {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background-color: #f9f9f9;
+        }
+
+        .message {
+            padding: 12px 18px;
+            border-radius: 10px;
+            max-width: 75%;
+            font-size: 16px;
+            line-height: 1.4;
+        }
+
+        .message.sent {
+            background-color: #d1e7ff;
+            align-self: flex-end;
+            border-radius: 10px 10px 0 10px;
+        }
+
+        .message.received {
+            background-color: #eaeaea;
+            align-self: flex-start;
+            border-radius: 10px 10px 10px 0;
+        }
+
+        .input-container {
+            display: flex;
+            padding: 15px;
+            background-color: #f0f0f0;
+            border-radius: 0 0 15px 15px;
+        }
+
+        .input-container input {
+            flex: 1;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .btn-icon {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-icon:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 
 <body>
-    <!-- Button to Create Room -->
-    <div id="roomOptionslass="roomOptions">
-        <button id="createRoomBtn">Create Room</button>
-        <input type="text" id="roomIdInput" placeholder="Enter Room ID" />
-        <button id="joinRoomBtn">Join Room</button>
-    </div>
-    <div id="chatContainer" class="chatContainer" style="display: none;">
-        <div class="chat-container">
-            <header>
-                <h2>Chat Room</h2>
-            </header>
-            <div id="chatWindow" class="chat-window"></div>
-            <div class="input-container">
-                <input type="text" id="messageInput" placeholder="Type your message..." />
-                <button id="sendMessageBtn">
-                    <i class="fas fa-paper-plane"></i>
-                </button>
-            </div>
+    <!-- Room Options -->
+    <div id="roomOptions" class="room-options">
+        <div class="room-controls">
+            <button id="createRoomBtn" class="btn-primary">Create Room</button>
+            <input type="text" id="roomIdInput" class="input-room" placeholder="Enter Room ID" />
+            <button id="joinRoomBtn" class="btn-primary">Join Room</button>
         </div>
     </div>
-    <script type="module" src="chat.js"></script>
+
+    <!-- Chat Container -->
+    <div id="chatContainer" class="chat-container">
+        <header class="chat-header">
+            <h2>Chat Room</h2>
+        </header>
+        <div id="chatWindow" class="chat-window"></div>
+        <div class="input-container">
+            <input type="text" id="messageInput" placeholder="Type your message..." />
+            <button id="sendMessageBtn" class="btn-icon">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Firebase Integration -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.16.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.16.0/firebase-auth.js";
+        import { getFirestore, doc, getDoc, setDoc, updateDoc, collection, getDocs, query, orderBy, addDoc, arrayUnion, onSnapshot } from "https://www.gstatic.com/firebasejs/9.16.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCM2bVe7bRvhlBducH9kxw1CRmrsK_kYEA",
+            authDomain: "balancebuddy-5427b.firebaseapp.com",
+            projectId: "balancebuddy-5427b",
+            storageBucket: "balancebuddy-5427b.appspot.com",
+            messagingSenderId: "263147724503",
+            appId: "1:263147724503:web:6ee0f6171e89a4d4575a92",
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        onAuthStateChanged(auth, (user) => {
+            if (!user) {
+                window.location.href = "login.html";
+            }
+        });
+
+        function toggleRoomOptions(show) {
+            document.getElementById('roomOptions').style.display = show ? 'block' : 'none';
+            document.getElementById('chatContainer').style.display = show ? 'none' : 'flex';
+        }
+
+        async function createRoom() {
+            const user = auth.currentUser;
+            if (!user) return alert('Log in first!');
+            const roomId = Math.random().toString(36).substring(2, 10);
+            const roomRef = doc(db, "rooms", roomId);
+
+            await setDoc(roomRef, { roomId, createdBy: user.uid, members: [user.uid], createdAt: new Date() });
+            document.getElementById('roomIdInput').value = roomId;
+            alert(`Room created: ${roomId}`);
+        }
+
+        async function joinRoom() {
+            const roomId = document.getElementById('roomIdInput').value.trim();
+            const user = auth.currentUser;
+            const roomRef = doc(db, 'rooms', roomId);
+            const roomDoc = await getDoc(roomRef);
+
+            if (!roomDoc.exists()) return alert('Room not found!');
+            const roomData = roomDoc.data();
+            if (roomData.members.includes(user.uid)) {
+                toggleRoomOptions(false);
+                return listenForMessages(roomId);
+            }
+
+            await updateDoc(roomRef, { members: arrayUnion(user.uid) });
+            toggleRoomOptions(false);
+            listenForMessages(roomId);
+        }
+
+        async function sendMessage() {
+            const roomId = document.getElementById('roomIdInput').value.trim();
+            const message = document.getElementById('messageInput').value.trim();
+            const user = auth.currentUser;
+            if (!message) return;
+
+            await addDoc(collection(db, 'rooms', roomId, 'messages'), {
+                text: message, senderId: user.uid, timestamp: new Date(),
+            });
+
+            document.getElementById('messageInput').value = '';
+        }
+
+        function listenForMessages(roomId) {
+            const messagesRef = query(collection(db, 'rooms', roomId, 'messages'), orderBy('timestamp'));
+            onSnapshot(messagesRef, (snapshot) => {
+                const chatWindow = document.getElementById('chatWindow');
+                snapshot.docChanges().forEach(change => {
+                    if (change.type === 'added') {
+                        const msg = change.doc.data();
+                        const msgDiv = document.createElement('div');
+                        msgDiv.textContent = msg.text;
+                        msgDiv.classList.add('message', auth.currentUser.uid === msg.senderId ? 'sent' : 'received');
+                        chatWindow.appendChild(msgDiv);
+                        chatWindow.scrollTop = chatWindow.scrollHeight;
+                    }
+                });
+            });
+        }
+
+        document.getElementById('createRoomBtn').addEventListener('click', createRoom);
+        document.getElementById('joinRoomBtn').addEventListener('click', joinRoom);
+        document.getElementById('sendMessageBtn').addEventListener('click', sendMessage);
+    </script>
 </body>
 
 </html>
