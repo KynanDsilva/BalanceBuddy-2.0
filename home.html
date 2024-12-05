@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BalanceBuddy - Home</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"> </script>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <style rel="spreadsheet"> 
         * {
             margin: 0;
@@ -52,25 +53,24 @@
         .sidebar-icons {
             font-size: 28px;
             cursor: pointer;
-            
         }
 
         .sidebar-icons :hover {
-            transition: transform 0.7s ease-out;
+            transition: transform 0.5s ease-in-out;
             transform: scale(1.1);
         }
 
-        .settings {
+        .profile {
             margin-bottom: 10px;
         }
 
-        .settings  {
-            font-size: 28px;
+        .profile  {
+            font-size: 32px;
             cursor: pointer;
-            transition: transform 0.3s ease-in-out;
+            transition: transform 0.5s ease-in-out;
         }
 
-        .settings :hover {
+        .profile :hover {
             transform: scale(1.2);
         }
 
@@ -100,13 +100,14 @@
 
             <!-- Sidebar Icons -->
             <div class="sidebar-icons">
-                <i class="fas fa-user-friends" title="Friends"></i>
-                <i class="fas fa-comments" title="Chat"></i>
+                <i class='bx bxs-user-account' style='color:#ffffff' id="friends-icon"></i>
+                <i class='bx bxs-chat' style='color:#ffffff' id="chat-icon"></i>
+                <i class='bx bxs-wallet-alt' style='color:#ffffff' title="Balance" id="balance-icon"></i>
             </div>
 
             <!-- Settings Icon -->
-            <div class="settings">
-                <i class="fas fa-cog" title="Settings"></i>
+            <div class="profile">
+                <i class='bx bxs-user-circle' style='color:#ffffff' id="user-profile"></i>
             </div>
         </div>
 
@@ -115,5 +116,6 @@
             <h1>Welcome to BalanceBuddy</h1>
         </div>
     </div>
+    <script type="module" src="home.js"></script>
 </body>
 </html>

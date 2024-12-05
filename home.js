@@ -21,8 +21,28 @@ onAuthStateChanged(auth, (user) => {
   console.log("Auth state changed");
   if (!user) {
     console.log("User not logged in, redirecting to login page");
-    window.location.href = "login.html";  // Check if the path is correct
+    window.location.href = "login.html";
   } else {
     console.log("User is logged in:", user.email);
   }
+});
+
+// Redirect to Friends page
+document.getElementById('friends-icon').addEventListener('click', function() {
+  window.location.href = 'friends.html';
+});
+
+// Redirect to Chat page
+document.getElementById('chat-icon').addEventListener('click', function() {
+  window.location.href = 'chat.html';
+});
+
+// Redirect to Balance page
+document.getElementById('balance-icon').addEventListener('click', function() {
+  window.location.href = 'balance.html';
+});
+
+//Redirect to User Profile
+document.getElementById('user-profile').addEventListener('click', function() {
+  window.location.href = 'user.html';
 });

@@ -29,6 +29,19 @@ onAuthStateChanged(auth, (user) => {
     }
 });
 
+function toggleRoomOptions(show) {
+    const roomOptions = document.getElementById('roomOptions');
+    const chatWindow = documents.getElementById('chatWindow');
+
+    if(show) {
+        roomOptions.style.display = 'block';
+        chatWindow.style.display = 'none';
+    } else {
+        roomOptions.style.display = 'none';
+        chatWindow.style.display = 'block';
+    }
+}
+
 // Function to create a new room
 async function createRoom() {
     const user = auth.currentUser;
@@ -38,33 +51,28 @@ async function createRoom() {
         return;
     }
 
-    const roomId = Math.random().toString(36).substring(2,10); // Function to generate a unique room ID
+    const roomId = Math.random().toString(36).substring(2, 10); // Function to generate a unique room ID
 
     // Add room to Firestore
     const roomRef = doc(db, "rooms", roomId);
 
-    try{
+    try {
         await setDoc(roomRef, {
             roomId: roomId,
             createdBy: user.uid,
             members: [user.uid],
             createdAt: new Date().toISOString(),
         });
-    
 
-    alert(`Room created successfully! Room ID: ${roomId}`);
-    document.getElementById('roomIdInput').value = roomId;
 
-    toggleRoomOptions(false);
+        alert(`Room created successfully! Room ID: ${roomId}`);
+        document.getElementById('roomIdInput').value = roomId;
 
-    } catch(error) {
+    } catch (error) {
         console.error("Error creating room: ", error);
         alert("Error creating room. Please try again.");
     }
 }
-
-//Event listener for creating a room
-document.getElementById('createRoomBtn').addEventListener('click', createRoom);
 
 // Function to join the room
 async function joinRoom() {
@@ -104,21 +112,8 @@ async function joinRoom() {
 
     alert('Joined the room successfully!');
 
-    document.getElementById('chatContainer').style.display = 'block'; // Show the chat UI
     toggleRoomOptions(false)
     listenForMessages(roomId); // Start listening for messages
-}
-function toggleRoomOptions(show) {
-    const roomOptions = document.getElementById('roomOptions');
-    const chatWindow = documents.getElementById('chatWindow');
-
-    if(show) {
-        roomOptions.style.display = 'block';
-        chatWindow.style.display = 'none';
-    } else {
-        roomOptions.style.display = 'none';
-        chatWindow.style.display = 'block';
-    }
 }
 
 // Function to send a message
@@ -174,5 +169,6 @@ function listenForMessages(roomId) {
 }
 
 // Event listeners for buttons
+document.getElementById('createRoomBtn').addEventListener('click', createRoom);
 document.getElementById('sendMessageBtn').addEventListener('click', sendMessage);
 document.getElementById('joinRoomBtn').addEventListener('click', joinRoom);
