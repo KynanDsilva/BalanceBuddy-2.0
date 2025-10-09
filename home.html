@@ -4,117 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BalanceBuddy - Home</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"> </script>
+    <link rel="stylesheet" href="home.css">
+    <link rel="icon" href="images/BB.ico">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <style rel="spreadsheet"> 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f0f8ff;
-        }
-
-        .container {
-            display: flex;
-            height: 100vh;
-            overflow: hidden;
-        }
-
-        /* Sidebar Styling */
-        .sidebar  {
-            background-color: #007acc;
-            color: white;
-            width: 80px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 0;
-        }
-
-        .menu-icon {
-            margin-top: 10px;
-            font-size: 24px;
-            cursor: pointer;
-        }
-
-        .sidebar-icons {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 50px;
-            margin-top: 30px;
-        }
-
-        .sidebar-icons {
-            font-size: 28px;
-            cursor: pointer;
-        }
-
-        .sidebar-icons :hover {
-            transition: transform 0.5s ease-in-out;
-            transform: scale(1.1);
-        }
-
-        .profile {
-            margin-bottom: 10px;
-        }
-
-        .profile  {
-            font-size: 32px;
-            cursor: pointer;
-            transition: transform 0.5s ease-in-out;
-        }
-
-        .profile :hover {
-            transform: scale(1.2);
-        }
-
-        /* Main Content Styling */
-        .main-content {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
-
-        .main-content h1 {
-            font-size: 3rem;
-            color: #007acc;
-        }
-    </style>
 </head>
 <body>
     <div class="container">
         <!-- Sidebar -->
-        <div class="sidebar">
-            <!-- Menu Icon -->
-            <div class="menu-icon">
-                <i class="fas fa-bars"></i>
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="images/balancebuddy-high-resolution-logo-transparent.png" alt="Logo" class="logo-icon">
+                <span class="logo-text">BalanceBuddy</span>
             </div>
 
-            <!-- Sidebar Icons -->
-            <div class="sidebar-icons">
-                <i class='bx bxs-user-account' style='color:#ffffff' id="friends-icon"></i>
-                <i class='bx bxs-chat' style='color:#ffffff' id="chat-icon"></i>
-                <i class='bx bxs-wallet-alt' style='color:#ffffff' title="Balance" id="balance-icon"></i>
-            </div>
+            <nav class="sidebar-menu">
+                <a href="friends.html" class="menu-item" id="friends-link">
+                    <i class='bx bxs-user-account'></i>
+                    <span>Friends</span>
+                </a>
+                <a href="chat.html" class="menu-item" id="chat-link">
+                    <i class='bx bxs-chat'></i>
+                    <span>Chat</span>
+                </a>
+                <a href="balance.html" class="menu-item" id="balance-link">
+                    <i class='bx bxs-wallet-alt'></i>
+                    <span>Balance</span>
+                </a>
+            </nav>
 
-            <!-- Settings Icon -->
-            <div class="profile">
-                <i class='bx bxs-user-circle' style='color:#ffffff' id="user-profile"></i>
+            <div class="sidebar-footer">
+                <a href="user.html" class="menu-item" id="user-profile-link">
+                    <i class='bx bxs-user-circle'></i>
+                    <span>Profile</span>
+                </a>
             </div>
-        </div>
+        </aside>
 
         <!-- Main Content -->
-        <div class="main-content">
-            <h1>Welcome to BalanceBuddy</h1>
-        </div>
+        <main class="main-content">
+            <div class="welcome-container">
+                <h1>Welcome to BalanceBuddy</h1>
+                <p>Select an option from the sidebar to get started.</p>
+            </div>
+        </main>
     </div>
     <script type="module" src="home.js"></script>
 </body>

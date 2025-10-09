@@ -1,69 +1,50 @@
-// Import the necessary Firebase functions
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
-import { getAuth, signOut, setPersistence, browserLocalPersistence, browserSessionPersistence } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
-import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+import { supabase } from './supabase-client.js';
 
-// Your Firebase configuration
-const firebaseConfig = {
-    apiKey: "AIzaSyCM2bVe7bRvhlBducH9kxw1CRmrsK_kYEA",
-    authDomain: "balancebuddy-5427b.firebaseapp.com",
-    projectId: "balancebuddy-5427b",
-    storageBucket: "balancebuddy-5427b.appspot.com",
-    messagingSenderId: "263147724503",
-    appId: "1:263147724503:web:6ee0f6171e89a4d4575a92",
-    measurementId: "G-5SJQ1VLRHH"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
-
-// Display user profile details after login
-auth.onAuthStateChanged(async (user) => {
-    if (user) {
-        // Capture HTML elements to display profile details
+supabase.auth.onAuthStateChange(async (event, session) => {
+    if (session) {
+        const currentUser = session.user;
         const userNameElement = document.getElementById('user-name');
         const userEmailElement = document.getElementById('user-email');
-        const userWelcomeMessage = document.getElementById('welcomeMessage');
 
-        // Display the user's name and email
-        userNameElement.innerText = user.displayName || 'No display name';
-        userEmailElement.innerText = user.email;
+        // Display email from the user object
+        userEmailElement.innerText = currentUser.email || 'N/A';
 
-        // Fetch additional user data from Firestore (if needed)
-        try {
-            const userDocRef = doc(db, 'users', user.uid);
-            const userDoc = await getDoc(userDocRef);
+        // Get the user's name directly from the user_metadata, which is the most reliable source.
+        const name = currentUser.user_metadata?.name;
 
-            if (userDoc.exists()) {
-                const userData = userDoc.data();
-                userWelcomeMessage.innerText = `Welcome back, ${userData.name}!`;
+        if (name) {
+            userNameElement.innerText = name;
+        } else {
+            // As a fallback, if metadata is empty, try fetching from the profiles table.
+            console.log('Name not found in session metadata, falling back to profiles table.');
+            const { data: profile, error } = await supabase
+                .from('profiles')
+                .select('name')
+                .eq('id', currentUser.id)
+                .single();
+
+            if (error) {
+                console.error('Error fetching profile name:', error);
+                userNameElement.innerText = 'Could not load name';
+            } else if (profile && profile.name) {
+                userNameElement.innerText = profile.name;
             } else {
-                console.log('No additional user data found in Firestore.');
+                userNameElement.innerText = 'N/A';
             }
-        } catch (error) {
-            console.error("Error fetching user data from Firestore:", error);
         }
     } else {
-        // If no user is logged in, redirect to the login page
         window.location.href = "login.html";
     }
 });
 
-// Handle logout functionality
 const logoutButton = document.getElementById('logout');
 logoutButton.addEventListener('click', async () => {
-    auth.signOut().then(() => {
-        console.log('User signed out. Clearing persistence...');
-        auth.setPersistence(browserSessionPersistence);  // Reset to session persistence on logout
-    });
     try {
-        await signOut(auth);
-        console.log('User logged out');
-        alert('Logged out successfully!');
-        window.location.href = "login.html";  // Redirect to login page after logout
+        const { error } = await supabase.auth.signOut();
+        if (error) throw error;
+        window.location.href = "login.html";
     } catch (error) {
         console.error('Error during logout:', error);
+        alert(`Failed to log out: ${error.message}`);
     }
 });

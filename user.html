@@ -6,19 +6,23 @@
     <link rel="stylesheet" href="user.css">
     <link rel="icon" href="images/BB.ico">
     <title>BB | User Profile</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
-    <a href="home.html" class="back-btn">Back to Home</a>
+    <a href="home.html" class="btn home-button"><i class='bx bx-home'></i> Home</a>
 
-    <div class="profile-container">
+    <header class="main-page-header">
         <h1>User Profile</h1>
-        <div class="user-card">
-            <div class="user-info" id="user-info">
-                <p><strong>Name:</strong> <span id="user-name">Balance Buddy</span></p>
-                <p><strong>Email:</strong> <span id="user-email">balancebuddy@example.com</span></p>
-            </div>
-            <div class="btn-logout">
-                <button type="submit" id="logout">Log Out</button>
+    </header>
+
+    <div class="page-container">
+        <div class="profile-container">
+            <div class="card user-card">
+                <div class="user-info" id="user-info">
+                    <p><strong>Name:</strong> <span id="user-name">Loading...</span></p>
+                    <p><strong>Email:</strong> <span id="user-email">Loading...</span></p>
+                </div>
+                <button type="submit" id="logout" class="btn btn-logout">Log Out</button>
             </div>
         </div>
     </div>
