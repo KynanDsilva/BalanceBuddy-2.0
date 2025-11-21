@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BalanceBuddy - Chatbot</title>
+    <link rel="icon" href="images/BB.ico" />
+
+    <!-- Reuse existing chat styles if desired -->
+    <link rel="stylesheet" href="chat.css" />
+</head>
+<body>
+    <div class="chat-container">
+        <header class="chat-header">
+            <h1>BalanceBuddy Chatbot</h1>
+            <p>Ask questions about your shared expenses, balances, and more.</p>
+        </header>
+
+        <main class="chat-main">
+            <div id="chat-messages" class="chat-messages">
+                <!-- Messages will appear here -->
+            </div>
+        </main>
+
+        <form id="chat-form" class="chat-form">
+            <input
+                type="text"
+                id="chat-input"
+                class="chat-input"
+                placeholder="Type your message..."
+                autocomplete="off"
+                required
+            />
+            <button type="submit" class="chat-send-btn">Send</button>
+        </form>
+    </div>
+
+    <!-- Placeholder script: you can later create chatbot.js and wire it up -->
+    <script>
+        const form = document.getElementById('chat-form');
+        const input = document.getElementById('chat-input');
+        const messages = document.getElementById('chat-messages');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const text = input.value.trim();
+            if (!text) return;
+
+            const userMsg = document.createElement('div');
+            userMsg.className = 'message message-user';
+            userMsg.textContent = text;
+            messages.appendChild(userMsg);
+
+            // Simple dummy bot reply for now
+            const botMsg = document.createElement('div');
+            botMsg.className = 'message message-bot';
+            botMsg.textContent = "I'm a placeholder BalanceBuddy bot. We'll wire real logic soon!";
+            messages.appendChild(botMsg);
+
+            messages.scrollTop = messages.scrollHeight;
+            input.value = '';
+            input.focus();
+        });
+    </script>
+</body>
+</html>
+
+
