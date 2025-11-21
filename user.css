@@ -1,0 +1,49 @@
+@import url('main.css');
+
+.page-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 4rem 2rem;
+    min-height: auto;
+}
+
+.profile-container {
+    width: 100%;
+    max-width: 500px;
+}
+
+.user-card {
+    text-align: left;
+}
+
+.user-info p {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 1.5rem;
+}
+
+.user-info p:last-child {
+    margin-bottom: 0;
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.user-info strong {
+    color: var(--text-primary);
+    display: block;
+    margin-bottom: 0.25rem;
+    font-weight: 500;
+}
+
+.btn-logout {
+    margin-top: 2rem;
+    width: 100%;
+    background-color: var(--error);
+}
+
+.btn-logout:hover {
+    background-color: #d32f2f;
+}

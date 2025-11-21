@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BB | Chats</title>
+    <link rel="icon" href="images/BB.ico">
+    <link rel="stylesheet" href="chat.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+
+<body>
+    <a href="home.html" class="btn home-button"><i class='bx bx-home'></i> Home</a>
+
+    <header class="main-page-header">
+        <h1>Chat Rooms</h1>
+    </header>
+
+    <div class="chat-page-wrapper">
+        <!-- Room Options -->
+        <div id="roomOptions" class="card room-options">
+            <h1 class="page-header" style="margin-bottom: 1rem; font-size: 1.5rem;">Join or Create a Room</h1>
+            <div class="room-controls">
+                <button id="createRoomBtn" class="btn btn-primary">Create New Room</button>
+                <div class="join-group">
+                    <input type="text" id="roomIdInput" class="input-field" placeholder="Enter Room ID" />
+                    <button id="joinRoomBtn" class="btn btn-primary">Join</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chat Container -->
+        <div id="chatContainer" class="chat-container">
+            <header class="chat-header">
+                <h2 id="room-id-header">Chat Room</h2>
+                <button id="leaveRoomBtn" class="btn">Leave Room</button>
+            </header>
+            <div id="chatWindow" class="chat-window"></div>
+            <div class="input-container">
+                <input type="text" id="messageInput" class="input-field" placeholder="Type your message..." />
+                <button id="sendMessageBtn" class="btn btn-primary">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="chat.js"></script>
+</body>
+</html>

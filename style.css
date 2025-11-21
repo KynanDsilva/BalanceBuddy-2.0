@@ -1,0 +1,131 @@
+@import url('main.css');
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: var(--bg-dark);
+    padding: 1rem;
+}
+
+.wrapper {
+    width: 420px;
+    background: var(--surface-dark);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-lg);
+    color: var(--text-primary);
+    padding: 30px 40px;
+    border-radius: 12px;
+}
+
+.wrapper h1 {
+    font-size: 36px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.wrapper .input-box {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    margin: 30px 0;
+}
+
+.input-box input {
+    width: 100%;
+    height: 100%;
+    background: var(--surface-light);
+    border: 1px solid var(--border-color);
+    outline: none;
+    border-radius: 8px;
+    font-size: 16px;
+    color: var(--text-primary);
+    padding: 20px 45px 20px 20px;
+    transition: border-color 0.3s ease;
+}
+
+.input-box input:focus {
+    border-color: var(--primary-accent);
+}
+
+.input-box input::placeholder {
+    color: var(--text-secondary);
+}
+
+.input-box i {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    color: var(--text-secondary);
+}
+
+.wrapper .remember-forget {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14.5px;
+    margin: -15px 0 15px;
+}
+
+.remember-forget label {
+    display: flex;
+    align-items: center;
+    color: var(--text-secondary);
+}
+
+.remember-forget label input {
+    accent-color: var(--primary-accent);
+    margin-right: 5px;
+}
+
+.remember-forget a {
+    color: var(--primary-accent);
+    text-decoration: none;
+}
+
+.remember-forget a:hover {
+    text-decoration: underline;
+}
+
+.wrapper .btn {
+    width: 100%;
+    height: 45px;
+    background: var(--primary-accent);
+    border: none;
+    outline: none;
+    border-radius: 8px;
+    box-shadow: var(--shadow-sm);
+    cursor: pointer;
+    font-size: 16px;
+    color: var(--text-primary);
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.wrapper .btn:hover {
+    background: var(--primary-accent-hover);
+    box-shadow: var(--shadow-md);
+}
+
+.wrapper .register-link,
+.wrapper .login-link {
+    font-size: 14.5px;
+    text-align: center;
+    margin-top: 20px;
+    color: var(--text-secondary);
+}
+
+.register-link p a,
+.login-link p a {
+    color: var(--primary-accent);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.register-link p a:hover,
+.login-link p a:hover {
+    text-decoration: underline;
+}

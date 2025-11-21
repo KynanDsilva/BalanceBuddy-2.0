@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BB | Add Friends</title>
+    <link rel="stylesheet" href="friends.css">
+    <link rel="icon" href="images/BB.ico">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+
+<body>
+    <a href="home.html" class="btn home-button"><i class='bx bx-home'></i> Home</a>
+    
+    <header class="main-page-header">
+        <h1>Manage Friends</h1>
+    </header>
+
+    <div class="page-container">
+        <div class="friends-grid">
+            <div class="main-column">
+                <div class="card section-card" id="search-section">
+                    <h3><i class='bx bx-search'></i> Search for Users</h3>
+                    <div class="search-container">
+                        <input type="text" id="searchInput" class="input-field" placeholder="Search by name...">
+                        <button id="searchButton" class="btn btn-primary"><i class='bx bx-search'></i></button>
+                    </div>
+                    <div id="searchResults" class="user-list"></div>
+                </div>
+
+                <div class="card section-card" id="requests-section">
+                    <h3><i class='bx bx-user-plus'></i> Friend Requests <span id="friendRequestBadge"></span></h3>
+                    <div id="friendRequestsReceived" class="user-list"></div>
+                </div>
+            </div>
+            
+            <div class="side-column">
+                <div class="card section-card" id="friends-list-section">
+                    <h3><i class='bx bxs-user-detail'></i> Your Friends</h3>
+                    <div id="friendList" class="user-list"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="friends.js"></script>
+</body>
+</html>

@@ -1,0 +1,173 @@
+@import url('main.css');
+
+.page-container {
+    display: block;
+    min-height: auto;
+    padding: 2rem;
+    margin: 0 auto;
+    max-width: 1200px;
+    width: 100%;
+}
+
+.friends-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+}
+
+.main-column, .side-column {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.section-card h3 {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.section-card h3 i {
+    font-size: 1.5rem;
+    color: var(--primary-accent);
+}
+
+.search-container {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+#searchButton {
+    padding: 0.75rem;
+    width: 50px;
+    height: 50px;
+    flex-shrink: 0;
+}
+
+#searchButton i {
+    font-size: 1.25rem;
+    margin: 0;
+}
+
+.user-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+}
+
+.user-list::-webkit-scrollbar {
+    width: 6px;
+}
+.user-list::-webkit-scrollbar-thumb {
+    background-color: var(--surface-light);
+    border-radius: 3px;
+}
+.user-list::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+.user-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background-color: var(--surface-light);
+    border-radius: 8px;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.user-item:hover {
+    background-color: #4b5563;
+    transform: translateX(5px);
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--primary-accent);
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 1rem;
+    flex-shrink: 0;
+    text-transform: uppercase;
+}
+
+.user-info {
+    flex-grow: 1;
+}
+
+.user-info span {
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+.user-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.btn-sm {
+    padding: 0.5rem;
+    width: 36px;
+    height: 36px;
+    font-size: 1.1rem;
+}
+
+.btn-sm i {
+    margin: 0;
+}
+
+.btn-accept {
+    background-color: var(--success);
+}
+.btn-accept:hover {
+    background-color: #059669;
+}
+
+.btn-reject {
+    background-color: var(--error);
+}
+.btn-reject:hover {
+    background-color: #b91c1c;
+}
+
+.no-results {
+    color: var(--text-secondary);
+    text-align: center;
+    padding: 2rem 0;
+    font-style: italic;
+}
+
+#friendRequestBadge {
+    background-color: var(--error);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 50%;
+    padding: 2px 8px;
+    margin-left: 0.5rem;
+    vertical-align: middle;
+    display: none;
+}
+
+@media (max-width: 992px) {
+    .friends-grid {
+        grid-template-columns: 1fr;
+    }
+    .user-list {
+        max-height: 300px;
+    }
+}
